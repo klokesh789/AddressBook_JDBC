@@ -21,7 +21,7 @@ public class AddressBookDBService {
 		return this.getAddressBookDataUsingDB(sql);
 	}
 
-	private List<AddressBookData> getAddressBookDataUsingDB(String sql) throws AddressBookException {
+	List<AddressBookData> getAddressBookDataUsingDB(String sql) throws AddressBookException {
 		List<AddressBookData> addressBookList = new ArrayList<>();
 		try (Connection connection = AddressBookConnection.getConnection();) {
 			Statement statement = (Statement) connection.createStatement();
@@ -52,5 +52,10 @@ public class AddressBookDBService {
 			throw new AddressBookException(e.getMessage(), AddressBookException.ExceptionType.DATABASE_EXCEPTION);
 		}
 		return addressBookList;
+	}
+
+	public int updateAddressBookData(String firstname, String address) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 }
