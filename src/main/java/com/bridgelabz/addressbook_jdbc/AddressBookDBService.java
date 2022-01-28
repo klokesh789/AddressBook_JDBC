@@ -43,10 +43,15 @@ public class AddressBookDBService {
 		return getAddressBookDataUsingDB(query);
 	}
 
+
 	private List<AddressBookData> getAddressBookDataUsingDB(String sql) throws AddressBookException {
 		List<AddressBookData> addressBookData = new ArrayList<>();
 		try (Connection connection = this.getConnection()) {
-			Statement statement = (Statement) connection.createStatement();
+
+	List<AddressBookData> getAddressBookDataUsingDB(String sql) throws AddressBookException {
+		List<AddressBookData> addressBookList = new ArrayList<>();
+		try (Connection connection = AddressBookConnection.getConnection();) {
+  	Statement statement = (Statement) connection.createStatement();
 			ResultSet resultSet = ((java.sql.Statement) statement).executeQuery(sql);
 			addressBookData = this.getAddressBookDetails(resultSet);
 		} catch (SQLException e) {
@@ -126,5 +131,10 @@ public class AddressBookDBService {
 			throw new AddressBookException(e.getMessage(), AddressBookException.ExceptionType.DATABASE_EXCEPTION);
 		}
 		return addressBookList;
+	}
+
+	public int updateAddressBookData(String firstname, String address) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 }

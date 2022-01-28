@@ -32,7 +32,11 @@ public class AddressBookService {
 
 	public boolean checkUpdatedRecordSyncWithDatabase(String firstname) throws AddressBookException {
 		try {
+
 			List<AddressBookData> addressBookData = addressBookDBService.getAddressBookData(firstname);
+
+			List<AddressBookData> addressBookData = addressBookDBService.getAddressBookDataUsingDB(firstname);
+
 			return addressBookData.get(0).equals(getAddressBookData(firstname));
 		} catch (AddressBookException e) {
 			throw new AddressBookException(e.getMessage(), AddressBookException.ExceptionType.DATABASE_EXCEPTION);
@@ -42,6 +46,7 @@ public class AddressBookService {
 	private AddressBookData getAddressBookData(String firstname) {
 		return this.addressBookList.stream().filter(addressBookItem -> addressBookItem.firstname.equals(firstname))
 				.findFirst().orElse(null);
+
 	}
 
 	public List<AddressBookData> readAddressBookData(IOService ioService, String start, String end)
@@ -56,4 +61,7 @@ public class AddressBookService {
 			throw new AddressBookException(e.getMessage(), AddressBookException.ExceptionType.DATABASE_EXCEPTION);
 		}
 	}
+
+	} 
+
 }
